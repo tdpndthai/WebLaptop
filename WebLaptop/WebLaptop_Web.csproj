@@ -232,6 +232,24 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebLaptop_Common\WebLaptop_Common.csproj">
+      <Project>{cf8d4568-9c95-485d-82e0-3b52a3d62d3f}</Project>
+      <Name>WebLaptop_Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebLaptop_Data\WebLaptop_Data.csproj">
+      <Project>{fc6bc3bd-aaef-49fc-a06c-cd13dd4ca2cd}</Project>
+      <Name>WebLaptop_Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebLaptop_Model\WebLaptop_Model.csproj">
+      <Project>{a96d8eb2-9c59-4699-8a0b-456f42c867f5}</Project>
+      <Name>WebLaptop_Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebLaptop_Service\WebLaptop_Service.csproj">
+      <Project>{f57e8c38-7f78-4626-ba0c-001d9a36a199}</Project>
+      <Name>WebLaptop_Service</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
