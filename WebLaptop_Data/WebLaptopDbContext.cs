@@ -31,6 +31,7 @@ namespace WebLaptop_Data
         public DbSet<Slide> Slides { set; get; }
         public DbSet<SupportOnline> SupportOnlines { set; get; }
         public DbSet<SystemConfig> SystemConfigs { set; get; }
+        public DbSet<Error> Errors { get; set; }
 
         public DbSet<Tag> Tags { set; get; }
 

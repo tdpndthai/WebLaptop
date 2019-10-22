@@ -62,8 +62,13 @@
     <Compile Include="Migrations\201910111429350_InitialCreateModelAndDal.designer.cs">
       <DependentUpon>201910111429350_InitialCreateModelAndDal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910180222591_adderrortable.cs" />
+    <Compile Include="Migrations\201910180222591_adderrortable.designer.cs">
+      <DependentUpon>201910180222591_adderrortable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
@@ -91,6 +96,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910111429350_InitialCreateModelAndDal.resx">
       <DependentUpon>201910111429350_InitialCreateModelAndDal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910180222591_adderrortable.resx">
+      <DependentUpon>201910180222591_adderrortable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
