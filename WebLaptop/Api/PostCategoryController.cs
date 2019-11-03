@@ -5,42 +5,96 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebLaptop.Infrastructure.Core;
+using WebLaptop_Model.Models;
 using WebLaptop_Service;
 
 namespace WebLaptop.Api
 {
+    [RoutePrefix("api/postcategory")]
     public class PostCategoryController : ApiControllerBase
     {
+        IPostCategoryService _postCategoryService;
         //contructor dựa trên contructor của base
-        public PostCategoryController(IErrorService errorService) : base(errorService)
+        public PostCategoryController(IErrorService errorService,IPostCategoryService postCategoryService) : base(errorService)
         {
-
-        }
-        // GET: api/PostCategory
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            _postCategoryService = postCategoryService;
         }
 
-        // GET: api/PostCategory/5
-        public string Get(int id)
+        [Route("getall")]
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
-            return "value";
+            return CreateHttpResponse(request, () =>
+            {
+                var listCategory = _postCategoryService.GetAll();
+
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategory);
+
+
+                return response;
+            });
         }
 
-        // POST: api/PostCategory
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
         {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var category = _postCategoryService.Add(postCategory);
+                    _postCategoryService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.Created, category);
+
+                }
+                return response;
+            });
         }
 
-        // PUT: api/PostCategory/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory postCategory)
         {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    _postCategoryService.Update(postCategory);
+                    _postCategoryService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.OK);
+
+                }
+                return response;
+            });
         }
 
-        // DELETE: api/PostCategory/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    _postCategoryService.Delete(id);
+                    _postCategoryService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.OK);
+
+                }
+                return response;
+            });
         }
     }
 }
