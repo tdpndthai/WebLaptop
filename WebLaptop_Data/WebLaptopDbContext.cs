@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +9,7 @@ using WebLaptop_Model.Models;
 
 namespace WebLaptop_Data
 {
-    public class WebLaptopDbContext : DbContext
+    public class WebLaptopDbContext : IdentityDbContext<ApplicationUser>
     {
         public WebLaptopDbContext() : base("WebLaptop")
         {
@@ -25,7 +26,6 @@ namespace WebLaptop_Data
         public DbSet<PostCategory> PostCategories { set; get; }
         public DbSet<PostTag> PostTags { set; get; }
         public DbSet<Product> Products { set; get; }
-
         public DbSet<ProductCategory> ProductCategories { set; get; }
         public DbSet<ProductTag> ProductTags { set; get; }
         public DbSet<Slide> Slides { set; get; }
@@ -37,10 +37,15 @@ namespace WebLaptop_Data
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
 
+        public static WebLaptopDbContext Create()
+        {
+            return new WebLaptopDbContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
