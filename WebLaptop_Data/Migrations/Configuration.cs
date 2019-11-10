@@ -3,6 +3,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -17,6 +18,7 @@
 
         protected override void Seed(WebLaptop_Data.WebLaptopDbContext context)
         {
+            CreateProductCategorySample(context);
             //khởi tạo dữ liệu mẫu khi chạy ứng dụng
             //  This method will be called after migrating to the latest version.
 
@@ -48,38 +50,53 @@
 
             //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
 
-            string[] roles = new string[] { "Admin", "User" };
-            foreach (string role in roles)
-            {
-                if (!context.Roles.Any(r => r.Name == role))
-                {
-                    context.Roles.Add(new IdentityRole(role));
-                }
-            }
+            //đoạn code dưới này chạy được,đoạn trên thì không(tham số truyền vào WebLaptop_Data.WebLaptopDbContext context)
+            //string[] roles = new string[] { "Admin", "User" };
+            //foreach (string role in roles)
+            //{
+            //    if (!context.Roles.Any(r => r.Name == role))
+            //    {
+            //        context.Roles.Add(new IdentityRole(role));
+            //    }
+            //}
 
-            //create user UserName:Owner Role:Admin
-            if (!context.Users.Any(u => u.UserName == "thaind"))
-            {
-                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                var user = new ApplicationUser
-                {
+            ////create user UserName:Owner Role:Admin
+            //if (!context.Users.Any(u => u.UserName == "thaind"))
+            //{
+            //    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            //    var user = new ApplicationUser
+            //    {
 
-                    UserName = "thaind",
-                    Email = "nguyendanhthai1605@gmail.com",
-                    EmailConfirmed = true,
-                    BirthDay = DateTime.Now,
-                    PasswordHash = userManager.PasswordHasher.HashPassword("1605"),
-                    FullName = "Nguyễn Danh Thái"
-                    
+            //        UserName = "thaind",
+            //        Email = "nguyendanhthai1605@gmail.com",
+            //        EmailConfirmed = true,
+            //        BirthDay = DateTime.Now,
+            //        PasswordHash = userManager.PasswordHasher.HashPassword("1605"),
+            //        FullName = "Nguyễn Danh Thái"
+
+            //    };
+            //    userManager.Create(user);
+            //    userManager.AddToRoles(user.Id, new string[] { "Admin", "User" });
+            //    //userManager.AddToRole(user.Id, "Admin");
+            //    //userManager.AddToRole(user.Id, "User");
+            //}
+
+            //context.SaveChanges();
+        }
+        private void CreateProductCategorySample(WebLaptop_Data.WebLaptopDbContext context)
+        {
+            if (context.ProductCategories.Count() == 0)
+            {
+                List<ProductCategory> listProductCategory = new List<ProductCategory>()
+                {
+                    new ProductCategory(){Name="dell latitude e6530",Alias="dell-latitude",Status=true},
+                    new ProductCategory(){Name="hp elitebook 8570p",Alias="hp",Status=true},
+                    new ProductCategory(){Name="lenovo thinkpad t480s",Alias="thinkpad",Status=true},
+                    new ProductCategory(){Name="acer aprise s5",Alias="acer",Status=true},
                 };
-                userManager.Create(user);
-                userManager.AddToRoles(user.Id, new string[] { "Admin", "User" });
-                //userManager.AddToRole(user.Id, "Admin");
-                //userManager.AddToRole(user.Id, "User");
+                context.ProductCategories.AddRange(listProductCategory);
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
-
         }
     }
 }

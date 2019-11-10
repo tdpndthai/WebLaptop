@@ -28,7 +28,7 @@
 //})();
 
 (function () {
-    angular.module('thaishop', ['thaishop.products', 'thaishop.common']).config(config);
+    angular.module('thaishop', ['thaishop.products', 'thaishop.productCategory', 'thaishop.common']).config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
