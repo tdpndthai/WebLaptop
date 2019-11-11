@@ -22,13 +22,26 @@ namespace WebLaptop.Api
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage)
+        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage,int page,int pageSize=20)
         {
             return CreateHttpResponse(requestMessage, () =>
             {
+                int totalRow = 0;
                 var model = _productCategoryService.GetAll();
-                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
-                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
+
+                var paginationSet = new PaginationSet<ProductCategoryViewModel>
+                {
+                    Items = responseData,
+                    Page=page,
+                    TotalCount=totalRow,
+                    TotalPages=(int)Math.Ceiling((decimal)totalRow/pageSize)
+                };
+
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, paginationSet);
                 return response;
             });
         }
