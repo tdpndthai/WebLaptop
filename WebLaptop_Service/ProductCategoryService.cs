@@ -18,6 +18,7 @@ namespace WebLaptop_Service
         ProductCategory Delete(int id);
 
         IEnumerable<ProductCategory> GetAll();
+        IEnumerable<ProductCategory> GetAll(string keyWord);
 
         IEnumerable<ProductCategory> GetAllByParentId(int parentId);
 
@@ -49,6 +50,19 @@ namespace WebLaptop_Service
         public IEnumerable<ProductCategory> GetAll()
         {
             return _productCategoryRepository.GetAll();
+        }
+
+        public IEnumerable<ProductCategory> GetAll(string keyWord)
+        {
+            if (!string.IsNullOrEmpty(keyWord))
+            {
+                return _productCategoryRepository.GetMulti(x => x.Name.Contains(keyWord) || x.Description.Contains(keyWord));
+            }
+            else
+            {
+                return _productCategoryRepository.GetAll();
+            }
+
         }
 
         public IEnumerable<ProductCategory> GetAllByParentId(int parentId)
