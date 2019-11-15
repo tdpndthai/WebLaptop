@@ -9,6 +9,7 @@ using WebLaptop.Infrastructure.Core;
 using WebLaptop.Models;
 using WebLaptop_Model.Models;
 using WebLaptop_Service;
+using WebLaptop.Infrastructure.Extensions;
 
 namespace WebLaptop.Api
 {
@@ -22,6 +23,7 @@ namespace WebLaptop.Api
         }
 
         [Route("getall")]
+        [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage requestMessage,string keyWord, int page,int pageSize=20)
         {
             return CreateHttpResponse(requestMessage, () =>
@@ -43,6 +45,47 @@ namespace WebLaptop.Api
 
                 var response = requestMessage.CreateResponse(HttpStatusCode.OK, paginationSet);
                 return response;
+            });
+        }
+
+        [Route("getallparents")]
+        [HttpGet]
+        public HttpResponseMessage GetAllParents(HttpRequestMessage requestMessage)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                var model = _productCategoryService.GetAll();
+                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage Create(HttpRequestMessage requestMessage,ProductCategoryViewModel productCategoryViewModel)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var newProductCategory = new ProductCategory();
+                    newProductCategory.UpdateProductCategory(productCategoryViewModel);
+                    _productCategoryService.Add(newProductCategory);
+                    _productCategoryService.Save();
+
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+
+
+                return responseMessage;
             });
         }
     }

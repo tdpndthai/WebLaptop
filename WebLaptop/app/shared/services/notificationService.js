@@ -6,8 +6,8 @@
             "positionClass": "toast-top-right",
             "onclick": null,
             "fadeIn": 300,
-            "fadeOut": 1000,
-            "timeOut": 3000,
+            "fadeOut": 800,
+            "timeOut": 2000,
             "extendedTimeOut":1000
         };
         function displaySuccess(message) {
