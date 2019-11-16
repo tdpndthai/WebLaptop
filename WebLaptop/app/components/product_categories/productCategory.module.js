@@ -14,6 +14,11 @@
                 url: "/add_product_category",
                 templateUrl: "/app/components/product_categories/productCategoryAddView.html",
                 controller: "productCategoryAddController"
+            })
+            .state('product_categories_edit', {
+                url: "/edit_product_category/:id", //truyền tham số id vào 
+                templateUrl: "/app/components/product_categories/productCategoryEditView.html",
+                controller: "productCategoryEditController"
             });
     }
 })();

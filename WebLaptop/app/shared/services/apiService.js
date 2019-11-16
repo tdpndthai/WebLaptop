@@ -8,7 +8,8 @@
     function apiService($http, notificationService) {
         return {
             get: get,
-            post: post
+            post: post,
+            put: put
         }
 
         function post(url, data, success, failure) {
@@ -16,8 +17,28 @@
                 success(result);
             }, function (error) {
                 console.log(error.status)
-                if (error.status == 400 || error.status == 500) {
+                if (error.status == 400) {
                     notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
+                }
+                else if (error.status == 500) {
+                    notificationService.displayError('Lỗi gì đó mà dev méo biết được đâu')
+                }
+                else if (failure != null) {
+                    failure(error);
+                }
+            });
+        }
+
+        function put(url, data, success, failure) {
+            $http.put(url, data).then(function (result) {
+                success(result);
+            }, function (error) {
+                console.log(error.status)
+                if (error.status == 400) {
+                    notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
+                }
+                else if (error.status == 500) {
+                    notificationService.displayError('Lỗi gì đó mà dev méo biết được đâu')
                 }
                 else if (failure != null) {
                     failure(error);
