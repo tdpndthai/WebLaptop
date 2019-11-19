@@ -101,7 +101,7 @@ namespace WebLaptop.Api
                 return responseMessage;
             });
         }
-
+    
         [Route("update")]
         [HttpPut]
         [AllowAnonymous]
@@ -123,6 +123,33 @@ namespace WebLaptop.Api
                     _productCategoryService.Save();
 
                     var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+
+
+                return responseMessage;
+            });
+        }
+
+
+        [Route("delete")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, int id)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var oldproductCategory = _productCategoryService.Delete(id);
+                    _productCategoryService.Save();
+
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(oldproductCategory);
                     responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 

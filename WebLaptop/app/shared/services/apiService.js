@@ -9,11 +9,29 @@
         return {
             get: get,
             post: post,
-            put: put
+            put: put,
+            del: del
         }
 
         function post(url, data, success, failure) {
             $http.post(url, data).then(function (result) {
+                success(result);
+            }, function (error) {
+                console.log(error.status)
+                if (error.status == 400) {
+                    notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
+                }
+                else if (error.status == 500) {
+                    notificationService.displayError('Lỗi gì đó mà dev méo biết được đâu')
+                }
+                else if(failure != null) {
+                    failure(error);
+                }
+            });
+        }
+
+        function del(url, data, success, failure) {
+            $http.delete(url, data).then(function (result) {
                 success(result);
             }, function (error) {
                 console.log(error.status)
