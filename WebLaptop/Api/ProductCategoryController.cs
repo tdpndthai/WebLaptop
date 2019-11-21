@@ -10,6 +10,7 @@ using WebLaptop.Models;
 using WebLaptop_Model.Models;
 using WebLaptop_Service;
 using WebLaptop.Infrastructure.Extensions;
+using System.Web.Script.Serialization;
 
 namespace WebLaptop.Api
 {
@@ -154,6 +155,32 @@ namespace WebLaptop.Api
                 }
 
 
+                return responseMessage;
+            });
+        }
+
+        [Route("deletemulti")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage requestMessage, string checkedProductCategories)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var listProductCategory = new JavaScriptSerializer().Deserialize<List<int>>(checkedProductCategories);
+                    foreach(var item in listProductCategory)
+                    {
+                        _productCategoryService.Delete(item);
+                    }
+                    _productCategoryService.Save();
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, listProductCategory.Count);
+                }
                 return responseMessage;
             });
         }

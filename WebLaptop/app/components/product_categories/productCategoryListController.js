@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('productCategoryListController', productCategoryListController);
 
-    productCategoryListController.$inject = ['$scope', 'apiService','notificationService','$ngBootbox'];
+    productCategoryListController.$inject = ['$scope', 'apiService','notificationService','$ngBootbox','$filter'];
 
-    function productCategoryListController($scope, apiService, notificationService, $ngBootbox) {
+    function productCategoryListController($scope, apiService, notificationService, $ngBootbox, $filter) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -13,6 +13,60 @@
         $scope.search = search;
 
         $scope.deleteProductCategory = deleteProductCategory;
+
+        $scope.selectAll = selectAll;
+        $scope.deleteMultiple = deleteMultiple;
+
+        function deleteMultiple() {
+            var listId = [];
+            $.each($scope.selected, function (i, item) {
+                listId.push(item.ID);
+            })
+            var config = {
+                params: {
+                    //tên tham số ở đây phải trùng với tên tham số bên api
+                    checkedProductCategories: JSON.stringify(listId)
+                }
+            }
+            apiService.del('api/productcategory/deletemulti', config, function (result) {
+                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi');
+                search();
+            }, function (error) {
+                notificationService.displayError('Xóa thành công không thành công')
+            })
+        }
+
+
+        //mặc định ban đầu chưa check all,binding vào ng-model vào checked bên ngoài view
+        $scope.isAll = false;
+        function selectAll() {
+            if ($scope.isAll == false) {
+                //nếu mà chưa isAll thì thêm thuộc tính checked vào
+                angular.forEach($scope.productCategories, function (item) {
+                    item.checked = true;
+                });
+                $scope.isAll = true;
+            }
+            else {
+                angular.forEach($scope.productCategories, function (item) {
+                    item.checked = false;
+                });
+                $scope.isAll = false;
+            }
+        } 
+
+        //lắng nghe sự thay đổi của list(select check) n:new, o: old,mỗi lần nhấn nút check thì xóa bỏ disabled trong thẻ html còn nếu ko thì thêm vào
+        $scope.$watch('productCategories', function (n, o) {
+            var checked = $filter("filter")(n, { checked: true });
+            if (checked.length) {
+                //gom tất cả các selected
+                $scope.selected = checked;
+                $('#btnDelete').removeAttr('disabled');
+            }
+            else {
+                $('#btnDelete').attr('disabled', 'disabled');
+            }
+        }, true);
 
         function deleteProductCategory(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {

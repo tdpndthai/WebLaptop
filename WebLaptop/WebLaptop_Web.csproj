@@ -2141,7 +2141,6 @@
     <Folder Include="app\components\user\" />
     <Folder Include="app\shared\footer\" />
     <Folder Include="app\shared\navigation\" />
-    <Folder Include="App_Data\" />
     <Folder Include="Assets\client\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
