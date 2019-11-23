@@ -11,9 +11,9 @@ namespace WebLaptop_Service
 {
     public interface IProductCategoryService
     {
-        ProductCategory Add(ProductCategory postCategory);
+        ProductCategory Add(ProductCategory productCategory);
 
-        void Update(ProductCategory postCategory);
+        void Update(ProductCategory productCategory);
 
         ProductCategory Delete(int id);
 
@@ -37,9 +37,9 @@ namespace WebLaptop_Service
             this._unitOfWork = unitOfWork;
         }
 
-        public ProductCategory Add(ProductCategory postCategory)
+        public ProductCategory Add(ProductCategory productCategory)
         {
-            return _productCategoryRepository.Add(postCategory);
+            return _productCategoryRepository.Add(productCategory);
         }
 
         public ProductCategory Delete(int id)
@@ -80,9 +80,9 @@ namespace WebLaptop_Service
             _unitOfWork.Commit();
         }
 
-        public void Update(ProductCategory postCategory)
+        public void Update(ProductCategory productCategory)
         {
-            _productCategoryRepository.Update(postCategory);
+            _productCategoryRepository.Update(productCategory);
         }
     }
 }

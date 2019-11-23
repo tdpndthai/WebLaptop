@@ -6,5 +6,5 @@
 //var uirouter = angular.module('uirouter', ['ui.router']);
 
 (function () {
-    angular.module('thaishop.common', ['ui.router','ngBootbox'])
+    angular.module('thaishop.common', ['ui.router', 'ngBootbox','ngCkeditor'])
 })();

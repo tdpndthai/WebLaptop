@@ -69,5 +69,29 @@ namespace WebLaptop.Infrastructure.Extensions
             productCategory.UpdatedBy = productCategoryViewModel.UpdatedBy;
             productCategory.UpdatedDate = productCategoryViewModel.UpdatedDate;
         }
+        public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
+        {
+            product.ID = productViewModel.ID;
+            product.Name = productViewModel.Name;
+            product.Description = productViewModel.Description;
+            product.Alias = productViewModel.Alias;
+            product.CategoryID = productViewModel.CategoryID;
+            product.Content = productViewModel.Content;
+            product.Image = productViewModel.Image;
+            product.MoreImages = productViewModel.MoreImages;
+            product.Price = productViewModel.Price;
+            product.PromotionPrice = productViewModel.PromotionPrice;
+            product.Warranty = productViewModel.Warranty;
+            product.HomeFlag = productViewModel.HomeFlag;
+            product.ViewCount = productViewModel.ViewCount;
+
+            product.CreatedDate = productViewModel.CreatedDate;
+            product.CreatedBy = productViewModel.CreatedBy;
+            product.UpdatedDate = productViewModel.UpdatedDate;
+            product.UpdatedBy = productViewModel.UpdatedBy;
+            product.MetaKeyword = productViewModel.MetaKeyword;
+            product.MetaDescription = productViewModel.MetaDescription;
+            product.Status = productViewModel.Status;
+        }
     }
 }

@@ -40,8 +40,8 @@
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     function config($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('products', {
-            url: "/products",
+        $stateProvider.state('products', { //trạng thái gọi trong sref
+            url: "/products", //đường dẫn trên url
             templateUrl: "/app/components/products/productListView.html",
             controller: "productListController"
         }).state('products_add', {
