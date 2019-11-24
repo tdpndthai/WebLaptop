@@ -84,6 +84,7 @@ namespace WebLaptop.Infrastructure.Extensions
             product.Warranty = productViewModel.Warranty;
             product.HomeFlag = productViewModel.HomeFlag;
             product.ViewCount = productViewModel.ViewCount;
+            product.Tags = productViewModel.Tags;
 
             product.CreatedDate = productViewModel.CreatedDate;
             product.CreatedBy = productViewModel.CreatedBy;

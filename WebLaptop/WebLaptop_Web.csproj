@@ -3406,6 +3406,10 @@
     <Content Include="Scripts\plugins\bootstrap\site\_layouts\simple.html" />
     <Content Include="Scripts\spa\app.js" />
     <Content Include="Scripts\spa\thaiShopDirective.html" />
+    <Content Include="UploadedFiles\files\50275116_1142787442572671_7757500278550560768_n.jpg" />
+    <Content Include="UploadedFiles\images\50275116_1142787442572671_7757500278550560768_n.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\50275116_1142787442572671_7757500278550560768_n.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\50275116_1142787442572671_7757500278550560768_n.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3424,7 +3428,6 @@
     <Folder Include="app\shared\footer\" />
     <Folder Include="app\shared\navigation\" />
     <Folder Include="Assets\client\" />
-    <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

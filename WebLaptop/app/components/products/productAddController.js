@@ -25,17 +25,21 @@
             language: "vi",
             height:'200px'
         };
-
+        $scope.GetSeoTitle = GetSeoTitle;
         $scope.AddProduct = AddProduct;
         function AddProduct() {
             apiService.post('api/product/create', $scope.product,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được thêm mới');
-                    $state.go('product_categories');
+                    $state.go('products');
                 }, function (error) {
                     console.log(error)
                     notificationService.displayError('Thêm mới không thành công')
                 });
+        }
+
+        function GetSeoTitle() {
+            $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);
         }
 
 
