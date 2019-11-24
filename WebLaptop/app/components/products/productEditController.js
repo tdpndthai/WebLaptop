@@ -35,19 +35,32 @@
             language: "vi",
             height: '200px'
         };
+        $scope.moreImages = [];
 
         function loadProductDetail() {
             apiService.get('api/product/getbyid/' + $stateParams.id, null, function (result) {
                 $scope.product = result.data; //gán đối tượng product vào đối tượng vừa lấy được
+                $scope.moreImages = JSON.parse($scope.product.MoreImages);//chuyển dạng json mảng
             }, function (error) {
                 console.log(error)
                 notificationService.displayError(error.data);
             });
         }
 
+        $scope.ChooseMoreImage = function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {//$apply cho ảnh hiển thị ngay tức thì
+                    $scope.moreImages.push(fileUrl);
+                })
+            };
+            finder.popup();
+        };
+
         $scope.GetSeoTitle = GetSeoTitle;
         $scope.UpdateProduct = UpdateProduct;
         function UpdateProduct() {
+            $scope.product.MoreImages = JSON.stringify($scope.moreImages)//gán list ảnh vừa thêm mới
             apiService.put('api/product/update', $scope.product,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được chỉnh sửa thành công');
@@ -74,7 +87,9 @@
         $scope.ChooseImage = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                })
             };
             finder.popup();
         }
