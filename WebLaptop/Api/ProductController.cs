@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 namespace WebLaptop.Api
 {
     [RoutePrefix("api/product")]
+    [Authorize]
     public class ProductController : ApiControllerBase
     {
         IProductService _productService;

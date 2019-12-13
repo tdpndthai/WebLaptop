@@ -4,8 +4,8 @@
 (function (app) {
     app.service('apiService', apiService);
 
-    apiService.$inject = ['$http', 'notificationService']; //http là service có sẵn của angular
-    function apiService($http, notificationService) {
+    apiService.$inject = ['$http', 'notificationService', 'authenticationService']; //http là service có sẵn của angular
+    function apiService($http, notificationService, authenticationService) {
         return {
             get: get,
             post: post,
@@ -14,11 +14,12 @@
         }
 
         function post(url, data, success, failure) {
+            authenticationService.setHeader();
             $http.post(url, data).then(function (result) {
                 success(result);
             }, function (error) {
                 console.log(error.status)
-                if (error.status == 400) {
+                if (error.status == 401) {
                     notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
                 }
                 else if (error.status == 500) {
@@ -31,11 +32,12 @@
         }
 
         function del(url, data, success, failure) {
+            authenticationService.setHeader();
             $http.delete(url, data).then(function (result) {
                 success(result);
             }, function (error) {
                 console.log(error.status)
-                if (error.status == 400) {
+                if (error.status == 401) {
                     notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
                 }
                 else if (error.status == 500) {
@@ -48,11 +50,12 @@
         }
 
         function put(url, data, success, failure) {
+            authenticationService.setHeader();
             $http.put(url, data).then(function (result) {
                 success(result);
             }, function (error) {
                 console.log(error.status)
-                if (error.status == 400) {
+                if (error.status == 401) {
                     notificationService.displayError('Yêu cầu đăng nhập vì bạn chưa có quyền')
                 }
                 else if (error.status == 500) {
@@ -65,6 +68,7 @@
         }
 
         function get(url, params, success, failure) {
+            authenticationService.setHeader();
             $http.get(url, params).then(function (result) {
                 success(result);
             }, function (error) {

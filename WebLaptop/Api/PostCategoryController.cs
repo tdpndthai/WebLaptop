@@ -14,6 +14,7 @@ using WebLaptop_Service;
 namespace WebLaptop.Api
 {
     [RoutePrefix("api/postcategory")]
+    [Authorize]
     public class PostCategoryController : ApiControllerBase
     {
         IPostCategoryService _postCategoryService;
