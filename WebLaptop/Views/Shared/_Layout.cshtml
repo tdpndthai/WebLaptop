@@ -22,12 +22,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
     <!--header-->
-        @{ Html.RenderAction("Header", "Home");}
+    @{ Html.RenderAction("Header", "Home");}
     <!---->
     <div class="container">
         @RenderBody()
     </div>
     </a>
+    @RenderSection("homeProducts", required: false);
     <!---->
     <div class="shoes-grid-left">
         <a href="single.html">
@@ -243,7 +244,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 
     <!---->
-<!--Footer-->
+    <!--Footer-->
     @{ Html.RenderAction("Footer", "Home");} <!--thực thi action method-->
+    @RenderSection("slideJS", required: false)
 </body>
 </html>

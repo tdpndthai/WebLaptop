@@ -13,17 +13,29 @@ namespace WebLaptop.Controllers
     public class HomeController : Controller
     {
         IProductCategoryService _productCategoryService;
+        IProductService _productService;
         ICommonService _commonService;
 
-        public HomeController(IProductCategoryService productCategoryService,ICommonService commonService)
+        public HomeController(IProductCategoryService productCategoryService,IProductService productService,ICommonService commonService)
         {
             _productCategoryService = productCategoryService;
+            _productService = productService;
             _commonService = commonService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            var slideModel = _commonService.GetSlide();
+            var slideViewModel = Mapper.Map<IEnumerable<Slide>,IEnumerable<SlideViewModel>>(slideModel);
+            var lastestProductModel = _productService.GetLastest(3);
+            var lastestProVM = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
+            var topSale = _productService.GetHotProduct(3);
+            var topSaleProVM = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSale);
+            var homeViewModel = new HomeViewModel();
+            homeViewModel.Slides = slideViewModel;
+            homeViewModel.LastestProducts = lastestProVM;
+            homeViewModel.TopSaleProducts = topSaleProVM;
+            return View(homeViewModel);
         }
 
         public ActionResult About()

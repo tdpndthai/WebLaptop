@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201911240303061_AddTagField.designer.cs">
       <DependentUpon>201911240303061_AddTagField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912181355057_AddContentToSlide.cs" />
+    <Compile Include="Migrations\201912181355057_AddContentToSlide.designer.cs">
+      <DependentUpon>201912181355057_AddContentToSlide.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911240303061_AddTagField.resx">
       <DependentUpon>201911240303061_AddTagField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912181355057_AddContentToSlide.resx">
+      <DependentUpon>201912181355057_AddContentToSlide.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
