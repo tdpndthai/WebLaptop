@@ -12,6 +12,7 @@ namespace WebLaptop
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        //ứng ụng mỗi khi khởi chạy
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

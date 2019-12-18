@@ -7,6 +7,7 @@
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using WebLaptop_Common;
     using WebLaptop_Model.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WebLaptop_Data.WebLaptopDbContext>
@@ -98,5 +99,13 @@
                 context.SaveChanges();
             }
         }
+
+        //private void CreateFooter(WebLaptopDbContext context)
+        //{
+        //    if (context.Footers.Count(x => x.ID == CommonConstants.DefaultFooterId) == 0)
+        //    {
+        //        string content = "";
+        //    }
+        //}
     }
 }
