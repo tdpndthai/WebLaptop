@@ -187,8 +187,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3503,6 +3507,10 @@
     <Folder Include="app\shared\footer\" />
     <Folder Include="app\shared\navigation\" />
     <Folder Include="Content\" />
+    <Folder Include="Views\About\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Content\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
@@ -3783,15 +3791,16 @@
     <Content Include="Assets\admin\libs\bootstrap\package-lock.json" />
     <Content Include="Assets\admin\libs\bootstrap\package.json" />
     <Content Include="Assets\admin\libs\bootstrap\README.md" />
+    <Content Include="ConnectionStrings.config" />
+    <Content Include="AppSetting.config" />
+    <Content Include="Assets\client\images\Thumbs.db" />
     <Content Include="Assets\admin\libs\angular\.bower.json" />
     <Content Include="Assets\admin\libs\angular\angular.min.js.gzip" />
     <Content Include="Assets\admin\libs\angular\angular.min.js.map" />
     <Content Include="Assets\admin\libs\angular\bower.json" />
+    <Content Include="Assets\admin\libs\angular\LICENSE.md" />
     <Content Include="Assets\admin\libs\angular\package.json" />
     <Content Include="Assets\admin\libs\angular\README.md" />
-    <Content Include="ConnectionStrings.config" />
-    <Content Include="AppSetting.config" />
-    <Content Include="Assets\client\images\Thumbs.db" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

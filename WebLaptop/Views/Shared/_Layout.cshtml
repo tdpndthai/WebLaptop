@@ -28,9 +28,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         @RenderBody()
     </div>
     </a>
-    @RenderSection("homeProducts", required: false);
+    @RenderSection("homeProducts", required: false)
     <!---->
-    <div class="shoes-grid-left">
+    @*<div class="shoes-grid-left">
         <a href="single.html">
             <div class="col-md-6 con-sed-grid">
 
@@ -236,7 +236,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
         <div class="clearfix"> </div>
-    </div>
+    </div>*@
     <div class="clearfix"> </div>
     </div>
     @{ Html.RenderAction("Category", "Home");}

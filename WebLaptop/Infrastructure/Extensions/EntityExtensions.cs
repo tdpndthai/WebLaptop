@@ -83,6 +83,7 @@ namespace WebLaptop.Infrastructure.Extensions
             product.PromotionPrice = productViewModel.PromotionPrice;
             product.Warranty = productViewModel.Warranty;
             product.HomeFlag = productViewModel.HomeFlag;
+            product.HotFlag = productViewModel.HotFlag;
             product.ViewCount = productViewModel.ViewCount;
             product.Tags = productViewModel.Tags;
 
