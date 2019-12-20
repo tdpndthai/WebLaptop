@@ -23,6 +23,8 @@ namespace WebLaptop_Service
         IEnumerable<Product> GetLastest(int top);
         IEnumerable<Product> GetHotProduct(int top);
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize,string sort, out int totalRow);
+        IEnumerable<Product> Search(string keyword, int page, int pageSize,string sort, out int totalRow);
+        IEnumerable<string> GetListProductByName(string keyword);
 
         Product GetById(int id);
         void Save();
@@ -131,6 +133,35 @@ namespace WebLaptop_Service
             }
             totalRow = queryable.Count();
             return queryable.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow)
+        {
+            var queryable = _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword));
+            switch (sort)
+            {
+                case "new":
+                    queryable = queryable.OrderByDescending(x => x.CreatedDate);
+                    break;
+                case "popular":
+                    queryable = queryable.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    queryable = queryable.OrderByDescending(x => x.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    queryable = queryable.OrderBy(x => x.Price);
+                    break;
+                default:
+                    break;
+            }
+            totalRow = queryable.Count();
+            return queryable.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<string> GetListProductByName(string keyword)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword)).Select(y=>y.Name);
         }
 
         public void Save()

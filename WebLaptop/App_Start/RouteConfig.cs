@@ -14,6 +14,12 @@ namespace WebLaptop
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             //trang tĩnh nên để trên cùng
             routes.MapRoute(
+                name: "Search",
+                url: "tim-kiem.html",
+                defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+                namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
+            );
+            routes.MapRoute(
                 name: "Login",
                 url: "dang-nhap.html",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
