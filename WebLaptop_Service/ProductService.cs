@@ -22,6 +22,7 @@ namespace WebLaptop_Service
         IEnumerable<Product> GetAll(string keyWord);
         IEnumerable<Product> GetLastest(int top);
         IEnumerable<Product> GetHotProduct(int top);
+        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize,string sort, out int totalRow);
 
         Product GetById(int id);
         void Save();
@@ -106,6 +107,30 @@ namespace WebLaptop_Service
         public IEnumerable<Product> GetLastest(int top)
         {
             return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize,string sort, out int totalRow )
+        {
+            var queryable = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
+            switch (sort)
+            {
+                case "new":
+                    queryable = queryable.OrderByDescending(x => x.CreatedDate);
+                    break;
+                case "popular":
+                    queryable = queryable.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    queryable = queryable.OrderByDescending(x => x.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    queryable = queryable.OrderBy(x => x.Price);
+                    break;
+                default:
+                    break;
+            }
+            totalRow = queryable.Count();
+            return queryable.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public void Save()
