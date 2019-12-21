@@ -22,9 +22,10 @@ namespace WebLaptop_Service
         IEnumerable<Product> GetAll(string keyWord);
         IEnumerable<Product> GetLastest(int top);
         IEnumerable<Product> GetHotProduct(int top);
-        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize,string sort, out int totalRow);
-        IEnumerable<Product> Search(string keyword, int page, int pageSize,string sort, out int totalRow);
+        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
+        IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
         IEnumerable<string> GetListProductByName(string keyword);
+        IEnumerable<Product> GetReatedProducts(int id, int top);
 
         Product GetById(int id);
         void Save();
@@ -38,7 +39,7 @@ namespace WebLaptop_Service
 
         private IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork,IProductTagRepository productTagRepository,ITagRepository tagRepository)
+        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IProductTagRepository productTagRepository, ITagRepository tagRepository)
         {
             this._productTagRepository = productTagRepository;
             this._tagRepository = tagRepository;
@@ -53,7 +54,7 @@ namespace WebLaptop_Service
             if (!string.IsNullOrEmpty(product.Tags))
             {
                 string[] tags = product.Tags.Split(',');//các tag cách nhau dấu phẩy
-                for(var i = 0; i < tags.Length; i++)
+                for (var i = 0; i < tags.Length; i++)
                 {
                     var tagId = StringHelper.ToUnsignString(tags[i]);
                     if (_tagRepository.Count(x => x.ID == tagId) == 0)
@@ -111,7 +112,7 @@ namespace WebLaptop_Service
             return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize,string sort, out int totalRow )
+        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
             var queryable = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
             switch (sort)
@@ -161,7 +162,7 @@ namespace WebLaptop_Service
 
         public IEnumerable<string> GetListProductByName(string keyword)
         {
-            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword)).Select(y=>y.Name);
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword)).Select(y => y.Name);
         }
 
         public void Save()
@@ -193,6 +194,12 @@ namespace WebLaptop_Service
                     _productTagRepository.Add(productTag);
                 }
             }
+        }
+
+        public IEnumerable<Product> GetReatedProducts(int id, int top)
+        {
+            var product = _productRepository.GetSingleById(id);
+            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
         }
     }
 }

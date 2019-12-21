@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebLaptop.Infrastructure.Core;
 using WebLaptop.Models;
 using WebLaptop_Common;
@@ -24,7 +25,13 @@ namespace WebLaptop.Controllers
         // GET: Product
         public ActionResult Detail(int productId)
         {
-            return View();
+            var productModel = _productService.GetById(productId);
+            var productVM = Mapper.Map<Product, ProductViewModel>(productModel);
+            var relatedProduct = _productService.GetReatedProducts(productId, 3);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
+            List<string> listImages = new JavaScriptSerializer().Deserialize <List<string>>(productModel.MoreImages);
+            ViewBag.MoreImages = listImages;
+            return View(productVM);
         }
         public ActionResult Category(int id, int page = 1, string sort = "")
         {

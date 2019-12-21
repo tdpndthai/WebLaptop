@@ -47,6 +47,7 @@ namespace WebLaptop_Model.Models
         public int? ViewCount { set; get; }
 
         public string Tags { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }

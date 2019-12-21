@@ -5388,6 +5388,7 @@
     <Content Include="Scripts\plugins\jquery-ui\README.md" />
     <Content Include="Scripts\plugins\jquery-ui\ui\.jshintrc" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

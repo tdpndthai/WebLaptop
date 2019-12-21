@@ -85,6 +85,7 @@ namespace WebLaptop.Infrastructure.Extensions
             product.HomeFlag = productViewModel.HomeFlag;
             product.HotFlag = productViewModel.HotFlag;
             product.ViewCount = productViewModel.ViewCount;
+            product.Quantity = productViewModel.Quantity;
             product.Tags = productViewModel.Tags;
 
             product.CreatedDate = productViewModel.CreatedDate;
