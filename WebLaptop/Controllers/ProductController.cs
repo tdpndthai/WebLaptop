@@ -31,6 +31,7 @@ namespace WebLaptop.Controllers
             ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
             List<string> listImages = new JavaScriptSerializer().Deserialize <List<string>>(productModel.MoreImages);
             ViewBag.MoreImages = listImages;
+            ViewBag.Tags =Mapper.Map<IEnumerable<Tag>,IEnumerable<TagViewModel>>(_productService.GetListTagsByProductId(productId));
             return View(productVM);
         }
         public ActionResult Category(int id, int page = 1, string sort = "")
@@ -60,6 +61,25 @@ namespace WebLaptop.Controllers
             var productModel = _productService.Search(keyword, page, pageSize, sort, out totalRow);
             var productVM = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(productModel);
             ViewBag.KeyWord = keyword;
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize); //tổng số trang chia cho số trang,làm tròn số với math.ceiling và ép kiểu về int
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productVM,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = totalPage
+            };
+            return View(paginationSet);
+        }
+
+        public ActionResult ListByTag(string tagid,int page = 1)
+        {
+            int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
+            int totalRow = 0;
+            var productModel = _productService.GetListProductByTag(tagid, page, pageSize, out totalRow);
+            var productVM = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(productModel);
+            ViewBag.Tag =Mapper.Map<Tag,TagViewModel>(_productService.GetTag(tagid));
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize); //tổng số trang chia cho số trang,làm tròn số với math.ceiling và ép kiểu về int
             var paginationSet = new PaginationSet<ProductViewModel>()
             {

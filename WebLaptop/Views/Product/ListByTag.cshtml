@@ -1,23 +1,15 @@
 ﻿@model WebLaptop.Infrastructure.Core.PaginationSet<WebLaptop.Models.ProductViewModel>
 
 @{
-    var keyword = (string)ViewBag.KeyWord;
-    ViewBag.Title = "Kết quả tìm kiếm cho từ khóa" +keyword;
+    var tag = (WebLaptop.Models.TagViewModel)ViewBag.Tag;
+    ViewBag.Title = "Kết quả tìm kiếm cho từ khóa" + tag.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="women-product">
     <div class=" w_content">
         <div class="women">
-            <a href=""><h4>Kết quả tìm kiếm: @keyword  -   <span>Tổng: @Model.TotalCount sản phẩm</span> </h4></a>
-            <ul class="w_nav">
-                <li>Sort : </li>
-                <li><a class="active" href="?page=@Model.Page&sort=popular">Phổ biến</a></li> |
-                <li><a href="?page=@Model.Page&sort=new">Mới </a></li> |
-                <li><a href="?page=@Model.Page&sort=discount">Khuyến mãi</a></li> |
-                <li><a href="?page=@Model.Page&sort=price">Giá: Thấp -> Cao </a></li>
-                <div class="clearfix"> </div>
-            </ul>
+            <a href=""><h4>Kết quả tìm kiếm theo tag: @tag.Name  -   <span>Tổng: @Model.TotalCount sản phẩm</span> </h4></a>
             <div class="clearfix"> </div>
         </div>
     </div>
@@ -101,3 +93,4 @@
         <div class="text-center">Không có bản ghi nào được tìm thấy</div>
     }
 </div>
+

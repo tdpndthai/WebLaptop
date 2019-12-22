@@ -47,6 +47,13 @@ namespace WebLaptop
                 namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
             );
 
+            routes.MapRoute(
+            name: "TagList",
+            url: "tag/{tagid}.html",
+            defaults: new { controller = "Product", action = "ListByTag", tagid = UrlParameter.Optional },
+            namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
+        );
+
 
             //mặc định để cuối cùng
             routes.MapRoute(
