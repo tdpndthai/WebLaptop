@@ -27,9 +27,9 @@ namespace WebLaptop
             );
 
             routes.MapRoute(
-                name: "About",
-                url: "gioi-thieu.html",
-                defaults: new { controller = "Product", action = "Index", id = UrlParameter.Optional },
+                name: "Page",
+                url: "trang/{alias}.html",
+                defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },
                 namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
             );
 

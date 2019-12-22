@@ -1,0 +1,16 @@
+﻿@model WebLaptop.Models.PageViewModel
+@{
+    ViewBag.Title = @Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class=" single_top">
+    <div class="single_grid">
+        <h1>@Model.Name</h1>
+        <div class="clearfix"> </div>
+        @Html.Raw(Model.Content)
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+

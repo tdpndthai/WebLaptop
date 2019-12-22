@@ -21,6 +21,7 @@
         {
             CreateProductCategorySample(context);
             CreateSlide(context);
+            CreatePage(context);
             //khởi tạo dữ liệu mẫu khi chạy ứng dụng
             //  This method will be called after migrating to the latest version.
 
@@ -125,6 +126,29 @@
                                 <span class=""on-get"">GET NOW</span>"}
                 };
                 context.Slides.AddRange(slides);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreatePage(WebLaptopDbContext context)
+        {
+            if (context.Pages.Count() == 0)
+            {
+                var page = new Page()
+                {
+                    Name="Giới thiệu",
+                    Alias="gioi-thieu",
+                    Content= @"HỘ KINH DOANH NGUYỄN DANH THÁI
+                                236 HOÀNG QUỐC VIỆT
+                                Thành phố Hà Nội,
+                                Việt Nam
+                                SĐT: 0246.2544.533 - Email: contact @laptop88.vn
+                                Website: laptop88.vn
+                                Số ĐKKD: 0108153788, cấp lần đầu ngày
+                                Sở KHĐT TP.Hà Nội cấp",
+                    Status=true,
+                };
+                context.Pages.Add(page);
                 context.SaveChanges();
             }
         }
