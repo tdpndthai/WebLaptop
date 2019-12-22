@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using WebLaptop.Models;
 using WebLaptop_Model.Models;
 using WebLaptop_Service;
@@ -23,6 +24,10 @@ namespace WebLaptop.Controllers
             _commonService = commonService;
         }
 
+        //phiên bản chung,tất cả các user đều có kết quả chung trả về thì nên đặt outputcache ở server,còn nếu trả riêng ví dụ đăng nhập
+        // xin chào+tên người dùng thì sẽ đặt ở client
+        // đối với partial view thì ko được set output cachelocation
+        [OutputCache(Duration =60,Location =OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             var slideModel = _commonService.GetSlide();
@@ -52,20 +57,23 @@ namespace WebLaptop.Controllers
             return View();
         }
 
+
+        [OutputCache(Duration =3600)]
         [ChildActionOnly]
         public ActionResult Footer()
         {
             var footerModel = _commonService.GetFooter();
             var footerViewModel = Mapper.Map<Footer, FooterViewModel>(footerModel);
+            ViewBag.Time = DateTime.Now.ToString("T");
             return PartialView(footerViewModel);
         }
-
+        [OutputCache(Duration = 3600)]
         [ChildActionOnly]
         public ActionResult Header()
         {
             return PartialView();
         }
-
+        [OutputCache(Duration = 3600)]
         [ChildActionOnly]
         public ActionResult Category()
         {
