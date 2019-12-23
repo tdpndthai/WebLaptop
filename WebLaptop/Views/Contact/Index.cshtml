@@ -1,0 +1,48 @@
+﻿@model WebLaptop.Models.ContactDetailViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section slideJS{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1i8MZU978BIgrKdmlZ7uwGv3T2sQF-M8"></script>
+    <script src="~/Assets/client/js/contact.js"></script>
+}
+<style>
+    #map{
+        height:450px;
+    }
+</style>
+
+<input type="hidden" id="hiAddress" value="@Model.Address <br/> Điện thoại: @Model.Phone <br/> Địa chỉ: @Model.Address" />
+<input type="hidden" id="hilat" value="@Model.Lat" />
+<input type="hidden" id="hilng" value="@Model.Lng" />
+<input type="hidden" id="hiname" value="@Model.Name" />
+
+<div class="main">
+    <address class="address">
+        <p>Địa chỉ: @Model.Address</p>
+        <dl>
+            <dt> </dt>
+            <dd>Số điện thoại:<span> @Model.Phone</span></dd>
+            <dd>E-mail:&nbsp; <a href="@Model.Email">@Model.Email</a></dd>
+        </dl>
+    </address>
+    <div class="clearfix"></div>
+    <div id="map"></div>
+    <div class="reservation_top">
+        <div class=" contact_right">
+            <h3>Liên hệ</h3>
+            <div class="contact-form">
+                <form method="post" action="contact-post.html">
+                    <input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+                    <input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+                    <textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+                    <input type="submit" value="Send">
+                    <div class="clearfix"> </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+

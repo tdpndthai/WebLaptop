@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
     using System.Linq;
     using WebLaptop_Common;
     using WebLaptop_Model.Models;
@@ -22,6 +24,7 @@
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreatePage(context);
+            CreateContactDetail(context);
             //khởi tạo dữ liệu mẫu khi chạy ứng dụng
             //  This method will be called after migrating to the latest version.
 
@@ -150,6 +153,40 @@
                 };
                 context.Pages.Add(page);
                 context.SaveChanges();
+            }
+        }
+        private void CreateContactDetail(WebLaptopDbContext context)
+        {
+            if (context.ContactDetails.Count() == 0)
+            {
+                try
+                {
+                    var contactdetail = new ContactDetail()
+                    {
+                        Name = "CNLTTH Thi mùng 5 tháng 1",
+                        Address = "Học viện kỹ thuật quân sự",
+                        Email = "test@gmail.com",
+                        Lat = 21.0474076,
+                        Lng = 105.7855591,
+                        Phone = "0383729419",
+                        Website = "https://www.facebook.com/profile.php?id=100007755821621",
+                        Others = "",
+                        Status = true
+                    };
+                    context.ContactDetails.Add(contactdetail);
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        }
+                    }
+                }
             }
         }
     }

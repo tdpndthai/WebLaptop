@@ -100,8 +100,13 @@
     <Compile Include="Migrations\201912220913588_addfk.designer.cs">
       <DependentUpon>201912220913588_addfk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912231531116_AddContactDetail.cs" />
+    <Compile Include="Migrations\201912231531116_AddContactDetail.designer.cs">
+      <DependentUpon>201912231531116_AddContactDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
@@ -154,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912220913588_addfk.resx">
       <DependentUpon>201912220913588_addfk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912231531116_AddContactDetail.resx">
+      <DependentUpon>201912231531116_AddContactDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

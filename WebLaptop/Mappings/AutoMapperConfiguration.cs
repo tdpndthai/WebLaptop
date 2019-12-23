@@ -29,6 +29,7 @@ namespace WebLaptop.Mappings
             Mapper.CreateMap<Footer, FooterViewModel>();
             Mapper.CreateMap<Slide, SlideViewModel>();
             Mapper.CreateMap<Page, PageViewModel>();
+            Mapper.CreateMap<ContactDetail, ContactDetailViewModel>();
         }
     }
 }

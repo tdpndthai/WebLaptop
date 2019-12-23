@@ -32,10 +32,9 @@ namespace WebLaptop_Data
         public DbSet<SupportOnline> SupportOnlines { set; get; }
         public DbSet<SystemConfig> SystemConfigs { set; get; }
         public DbSet<Error> Errors { get; set; }
-
         public DbSet<Tag> Tags { set; get; }
-
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
+        public DbSet<ContactDetail> ContactDetails { get; set; }
 
         public static WebLaptopDbContext Create()
         {
