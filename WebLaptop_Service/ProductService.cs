@@ -27,8 +27,8 @@ namespace WebLaptop_Service
         IEnumerable<string> GetListProductByName(string keyword);
         IEnumerable<Product> GetReatedProducts(int id, int top);
         IEnumerable<Tag> GetListTagsByProductId(int id);
-        void IncreaseView(int id);
         IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow);
+        void IncreaseViewCount(Product product);
         Tag GetTag(string tagid);
         Product GetById(int id);
         void Save();
@@ -210,18 +210,6 @@ namespace WebLaptop_Service
             return _productTagRepository.GetMulti(x => x.ProductID == id, new string[] { "Tag" }).Select(y => y.Tag);
         }
 
-        public void IncreaseView(int id)
-        {
-            var product = _productRepository.GetSingleById(id);
-            if (product.ViewCount.HasValue)
-            {
-                product.ViewCount += 1;
-            }
-            else
-            {
-                product.ViewCount = 1;
-            }
-        }
 
         public IEnumerable<Product> GetListProductByTag(string tagId,int page,int pageSize,out int totalRow)
         {
@@ -232,6 +220,24 @@ namespace WebLaptop_Service
         public Tag GetTag(string tagid)
         {
             return _tagRepository.GetSingleByCondition(x => x.ID == tagid);
+        }
+
+        public void IncreaseViewCount(Product product)
+        {
+            if (product.ViewCount == null)
+            {
+                product.ViewCount = 0;
+            }
+            if (product.ViewCount.HasValue)
+            {
+                product.ViewCount += 1;
+            }
+            else
+            {
+                product.ViewCount = 1;
+            }
+            _productRepository.Update(product);
+            Save();
         }
     }
 }

@@ -59,7 +59,7 @@
             <ul id="etalage">
                 <li>
                     <a href="#">
-                        <img class="etalage_thumb_image img-responsive" src="@Model.Image"  />
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
                         <img class="etalage_source_image img-responsive" src="@Model.Image" title="@Model.Name" />
                     </a>
                 </li>
@@ -83,7 +83,18 @@
 
             <h4>@Model.Name</h4>
             <div class="cart-b">
-                <div class="left-n ">@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("N0"))</div>
+                <div class="left-n ">
+                    @if (Model.PromotionPrice.HasValue)
+                    {
+                        <span style="color:red">Giá sốc chỉ còn có :</span><span style="color:red;font-size:28px"> @(Model.PromotionPrice.Value.ToString("N0"))</span>
+                        <br />
+                        <span style="color:gray">Giá gốc : </span><span class="reducedfrom" style="font-size:20px;">@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("N0"))</span>
+                    }
+                    else
+                    {
+                        @(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("N0"))
+                    }
+                </div>
                 <a class="now-get get-cart-in" href="/them-gio-hang/@Model.ID">Thêm vào giỏ hàng</a>
                 <div class="clearfix"></div>
             </div>

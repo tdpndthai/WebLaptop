@@ -26,6 +26,7 @@ namespace WebLaptop.Controllers
         public ActionResult Detail(int productId)
         {
             var productModel = _productService.GetById(productId);
+            _productService.IncreaseViewCount(productModel);
             var productVM = Mapper.Map<Product, ProductViewModel>(productModel);
             var relatedProduct = _productService.GetReatedProducts(productId, 3);
             ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);

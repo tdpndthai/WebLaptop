@@ -41,7 +41,14 @@
                     </div>
                     <h4><a href="@url">@product.Name</a></h4>
                     <p>@product.Description</p>
-                    @(product.Price == 0 ? "Liên hệ" : @product.Price.ToString("N2"))
+                    @if (product.PromotionPrice != null && product.PromotionPrice != 0)
+                    {
+                        @(product.PromotionPrice.Value.ToString("N2"))
+                    }
+                    else
+                    {
+                        @(product.Price == 0 ? "Liên hệ" : @product.Price.ToString("N2"))
+                    }
                 </div>
                 <div class="clearfix"> </div>
                 @if (Model.TotalPages > 1)
