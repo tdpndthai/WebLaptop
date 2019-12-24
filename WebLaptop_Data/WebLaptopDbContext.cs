@@ -35,6 +35,7 @@ namespace WebLaptop_Data
         public DbSet<Tag> Tags { set; get; }
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<ContactDetail> ContactDetails { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         public static WebLaptopDbContext Create()
         {

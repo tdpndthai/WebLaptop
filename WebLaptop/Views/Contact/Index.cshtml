@@ -1,4 +1,5 @@
-﻿@model WebLaptop.Models.ContactDetailViewModel
+﻿@model WebLaptop.Models.FeedbackViewModel
+@using BotDetect.Web.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,23 +9,23 @@
     <script src="~/Assets/client/js/contact.js"></script>
 }
 <style>
-    #map{
-        height:450px;
+    #map {
+        height: 450px;
     }
 </style>
-
-<input type="hidden" id="hiAddress" value="@Model.Address <br/> Điện thoại: @Model.Phone <br/> Địa chỉ: @Model.Address" />
-<input type="hidden" id="hilat" value="@Model.Lat" />
-<input type="hidden" id="hilng" value="@Model.Lng" />
-<input type="hidden" id="hiname" value="@Model.Name" />
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+<input type="hidden" id="hiAddress" value="@Model.ContactDetailViewModel.Name <br/> Điện thoại: @Model.ContactDetailViewModel.Phone <br/> Địa chỉ: @Model.ContactDetailViewModel.Address" />
+<input type="hidden" id="hilat" value="@Model.ContactDetailViewModel.Lat" />
+<input type="hidden" id="hilng" value="@Model.ContactDetailViewModel.Lng" />
+<input type="hidden" id="hiname" value="@Model.ContactDetailViewModel.Name" />
 
 <div class="main">
     <address class="address">
-        <p>Địa chỉ: @Model.Address</p>
+        <p>Địa chỉ: @Model.ContactDetailViewModel.Address</p>
         <dl>
             <dt> </dt>
-            <dd>Số điện thoại:<span> @Model.Phone</span></dd>
-            <dd>E-mail:&nbsp; <a href="@Model.Email">@Model.Email</a></dd>
+            <dd>Số điện thoại:<span> @Model.ContactDetailViewModel.Phone</span></dd>
+            <dd>E-mail:&nbsp; <a href="@Model.ContactDetailViewModel.Email">@Model.ContactDetailViewModel.Email</a></dd>
         </dl>
     </address>
     <div class="clearfix"></div>
@@ -33,13 +34,32 @@
         <div class=" contact_right">
             <h3>Liên hệ</h3>
             <div class="contact-form">
-                <form method="post" action="contact-post.html">
-                    <input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-                    <input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-                    <textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
-                    <input type="submit" value="Send">
+                @using (Html.BeginForm("SendFeedback", "Contact", FormMethod.Post))
+                {
+                    if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            <strong>Chúc mừng bạn</strong> @Model.Name gửi phản hồi thành công
+                            <br />
+                            Chúng tôi sẽ phản hồi sớm lại cho bạn qua địa chỉ email: @Model.Email
+                        </div>
+                    }
+                    @Html.ValidationSummary(false, "")
+                    <span>Tên</span>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "textbox" })
+                    <span>Email</span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "textbox" })
+                    <span>Message</span>
+                    @Html.TextAreaFor(model => model.Message)
+
+                    MvcCaptcha contactCaptcha = new MvcCaptcha("ContactCaptcha");
+                    contactCaptcha.UserInputID = "CaptchaCode";
+                    @Html.Captcha(contactCaptcha)
+                    @Html.TextBox("CaptchaCode")
+                    <input type="submit" value="Gửi đi">
                     <div class="clearfix"> </div>
-                </form>
+                }
+
 
             </div>
         </div>

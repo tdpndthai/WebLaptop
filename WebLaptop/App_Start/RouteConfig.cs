@@ -13,6 +13,8 @@ namespace WebLaptop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             //trang tĩnh nên để trên cùng
+            routes.IgnoreRoute("{*botdetect}", new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
+
             routes.MapRoute(
                 name: "Contact",
                 url: "lien-he.html",

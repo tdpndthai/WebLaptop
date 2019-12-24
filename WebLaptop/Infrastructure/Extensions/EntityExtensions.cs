@@ -96,5 +96,14 @@ namespace WebLaptop.Infrastructure.Extensions
             product.MetaDescription = productViewModel.MetaDescription;
             product.Status = productViewModel.Status;
         }
+        public static void UpdateFeedback(this Feedback feedback, FeedbackViewModel feedbackViewModel)
+        {
+            feedback.ID = feedbackViewModel.ID;
+            feedback.Name = feedbackViewModel.Name;
+            feedback.Email = feedbackViewModel.Email;
+            feedback.Message = feedbackViewModel.Message;
+            feedback.CreatedDate = DateTime.Now;
+            feedback.Status = feedbackViewModel.Status;
+        }
     }
 }

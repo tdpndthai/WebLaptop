@@ -104,10 +104,15 @@
     <Compile Include="Migrations\201912231531116_AddContactDetail.designer.cs">
       <DependentUpon>201912231531116_AddContactDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912240336483_AddTableFeedback.cs" />
+    <Compile Include="Migrations\201912240336483_AddTableFeedback.designer.cs">
+      <DependentUpon>201912240336483_AddTableFeedback.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
+    <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
@@ -162,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912231531116_AddContactDetail.resx">
       <DependentUpon>201912231531116_AddContactDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912240336483_AddTableFeedback.resx">
+      <DependentUpon>201912240336483_AddTableFeedback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
