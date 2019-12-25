@@ -45,7 +45,7 @@ namespace WebLaptop.Controllers
                 content = content.Replace("{{Name}}", feedbackViewModel.Name);
                 content = content.Replace("{{Email}}", feedbackViewModel.Email);
                 content = content.Replace("{{Message}}", feedbackViewModel.Message);
-                var adminEmail = ConfigHelper.GetByKey("AdminEmail");
+                var adminEmail = ConfigHelper.GetByKey("AdminUser");
                 MailHelper.SendMail(adminEmail, "Thông tin liên hệ từ website", content);
             }
             feedbackViewModel.ContactDetailViewModel = GetDetail();
