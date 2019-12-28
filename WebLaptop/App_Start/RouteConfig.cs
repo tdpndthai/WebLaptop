@@ -42,7 +42,7 @@ namespace WebLaptop
 
             routes.MapRoute(
                 name: "Page",
-                url: "{alias}.html",
+                url: "trang/{alias}.html",
                 defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },
                 namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
             );

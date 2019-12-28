@@ -1,21 +1,15 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 <div class="header">
     <div class="top-header">
         <div class="container">
             <div class="top-header-left">
                 <ul class="support">
                     <li><a href="#"><label> </label></a></li>
-                    <li><a href="#">24x7 live<span class="live"> support</span></a></li>
+                    <li><a href="/lien-he.html">Liên hệ</a></li>
                 </ul>
                 <ul class="support">
                     <li class="van"><a href="#"><label> </label></a></li>
-                    <li><a href="#">Free shipping <span class="live">on order over 500</span></a></li>
-                </ul>
-                <ul>
                     <li><a href="/gioi-thieu.html">Giới thiệu</a></li>
-                </ul>
-                <ul>
-                    <li><a href="/lien-he.html">Liên hệ</a></li>
                 </ul>
                 <div class="clearfix"> </div>
             </div>
@@ -57,11 +51,28 @@
                 <div class="clearfix"> </div>
             </div>
             <div class="header-bottom-right">
-                <div class="account"><a href="login.html"><span> </span>Tài khoản</a></div>
-                <ul class="login">
-                    <li><a href="/dang-nhap.html"><span> </span>Đăng nhập</a></li> |
-                    <li><a href="/dang-ky.html">Đăng ký</a></li>
-                </ul>
+                <!--đã được đăng nhập thì mới hiển thị nút-->
+                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post,new {@id="frmLogout" }))
+                {
+                    if (Request.IsAuthenticated)
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <div class="account"><a href="/tai-khoan.html"><span> </span>Xin chào: @User.Identity.GetUserName()</a></div>
+                        <ul class="login">
+                            <li>
+                               <button type="submit" style="color:blue;border: 1px solid cornflowerblue;">Thoát</button>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="login">
+                            <li><a href="/dang-nhap.html"><span> </span>Đăng nhập</a></li> |
+                            <li><a href="/dang-ky.html">Đăng ký</a></li>
+                        </ul>
+                    }
+                }
                 <div class="cart"><a href="#"><span> </span>Giỏ hàng</a></div>
                 <div class="clearfix"> </div>
             </div>

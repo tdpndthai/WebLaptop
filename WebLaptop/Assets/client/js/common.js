@@ -29,7 +29,11 @@
             return $("<li>")
                 .append("<a>" + item.label + "</a>")
                 .appendTo(ul);
-        };
+            };
+        //$('btnLogOut').off('click').on('click', function (e) {
+        //    e.preventDefault(); //xóa mặc định của thẻ a là #
+        //    $('frmLogout').submit();
+        //})
     }
 }
 common.init();

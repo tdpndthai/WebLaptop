@@ -27,7 +27,7 @@ namespace WebLaptop.Controllers
         //phiên bản chung,tất cả các user đều có kết quả chung trả về thì nên đặt outputcache ở server,còn nếu trả riêng ví dụ đăng nhập
         // xin chào+tên người dùng thì sẽ đặt ở client
         // đối với partial view thì ko được set output cachelocation
-        [OutputCache(Duration =60,Location =OutputCacheLocation.Server)]
+        [OutputCache(Duration =60,Location =OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             var slideModel = _commonService.GetSlide();
@@ -67,7 +67,7 @@ namespace WebLaptop.Controllers
             ViewBag.Time = DateTime.Now.ToString("T");
             return PartialView(footerViewModel);
         }
-        [OutputCache(Duration = 3600)]
+
         [ChildActionOnly]
         public ActionResult Header()
         {

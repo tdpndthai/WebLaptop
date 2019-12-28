@@ -1,8 +1,11 @@
 ﻿using BotDetect.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -53,9 +56,41 @@ namespace WebLaptop.Controllers
             }
         }
         // GET: Account
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel loginViewModel,string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user =  _userManager.Find(loginViewModel.UserName, loginViewModel.Password);
+                if (user != null)
+                {
+                    IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;//khởi tạo
+                    authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);//có sẵn thì singout ra xóa session có sẵn
+                    ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationProperties props = new AuthenticationProperties();
+                    props.IsPersistent = loginViewModel.RememberMe;
+                    authenticationManager.SignIn(props, identity);
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                }
+            }
+            return View(loginViewModel);
         }
 
         [HttpGet]
@@ -107,6 +142,15 @@ namespace WebLaptop.Controllers
                 MailHelper.SendMail(adminEmail, "Đăng ký tài khoản thành công", content);
             }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
