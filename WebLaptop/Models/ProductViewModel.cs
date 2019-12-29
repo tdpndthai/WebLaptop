@@ -5,6 +5,7 @@ using System.Web;
 
 namespace WebLaptop.Models
 {
+    [Serializable]
     public class ProductViewModel
     {
         public int ID { set; get; }

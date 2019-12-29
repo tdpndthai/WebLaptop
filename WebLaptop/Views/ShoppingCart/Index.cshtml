@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@section slideJS{
+    <script src="/Assets/client/js/shoppingCart.js"></script>
+}*@
+<div class="single_top">
+    <div class="single_grid">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>STT</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Hình ảnh</td>
+                    <td>Giá</td>
+                    <td>Số lượng</td>
+                    <td>Thành tiền</td>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+            </tbody>
+        </table>
+        <div class="pull-right">
+            Tổng số tiền: <span id="lblTotalOrder"></span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script id="tplCart" type="x-tml-mustache">
+    <tr>
+        <td>{{ProductId}}</td>
+        <td>{{ProductName}}</td>
+        <td><img src="{{Image}}" height="20"/></td>
+        <td>{{PriceF}}</td>
+        <td><input class="input txtQuantity" data-price="{{Price}}" data-id="{{ProductId}}" value="{{Quantity}}" type="number"/></td>
+        <td id="amount_{{ProductId}}">{{Amount}}</td>
+        <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}" ><i class="fa fa-close"></i></button></td>
+    </tr>
+    
+</script>
+

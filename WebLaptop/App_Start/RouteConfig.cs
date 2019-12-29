@@ -41,6 +41,13 @@ namespace WebLaptop
             );
 
             routes.MapRoute(
+                name: "Cart",
+                url: "gio-hang.html",
+                defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "WebLaptop.Controllers" } //check lỗi nếu trùng namespace
+            );
+
+            routes.MapRoute(
                 name: "Page",
                 url: "trang/{alias}.html",
                 defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },
