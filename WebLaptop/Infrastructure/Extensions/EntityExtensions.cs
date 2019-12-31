@@ -105,5 +105,19 @@ namespace WebLaptop.Infrastructure.Extensions
             feedback.CreatedDate = DateTime.Now;
             feedback.Status = feedbackViewModel.Status;
         }
+
+        public static void UpdateOrder(this Order order,OrderViewModel orderViewModel)
+        {
+            order.CustomerName = orderViewModel.CustomerName;
+            order.CustomerAddress = orderViewModel.CustomerAddress;
+            order.CustomerEmail = orderViewModel.CustomerEmail;
+            order.CustomerMobile = orderViewModel.CustomerMobile;
+            order.CustomerMessage = orderViewModel.CustomerMessage;
+            order.PaymentMethod = orderViewModel.PaymentMethod;
+            order.CreatedDate = DateTime.Now;
+            order.CreatedBy = orderViewModel.CreatedBy;
+            order.Status = orderViewModel.Status;
+            order.CustomerId = orderViewModel.CustomerId;
+        }
     }
 }
